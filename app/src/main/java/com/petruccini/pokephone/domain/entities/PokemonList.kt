@@ -2,7 +2,7 @@ package com.petruccini.pokephone.domain.entities
 
 data class PokemonList(
     val count: Int,
-    val results: List<PokemonItem>
+    val pokemonItems: List<PokemonItem>
 )
 
 data class PokemonItem(

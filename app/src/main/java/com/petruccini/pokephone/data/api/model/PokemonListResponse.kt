@@ -17,7 +17,7 @@ data class PokemonItemResponse(
 
 fun PokemonListResponse.toPokemonList() = PokemonList(
     count = count,
-    results = results.map { it.toPokemonItem() }
+    pokemonItems = results.map { it.toPokemonItem() }
 )
 
 fun PokemonItemResponse.toPokemonItem() = PokemonItem(
