@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object APIFactory {
-    private var apiBaseUrl = "https://pokeapi.co/api/v2/"
+    private var apiBaseUrl = "https://pokeapi.co"
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url()

@@ -1,6 +1,7 @@
 package com.petruccini.pokephone.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,34 +21,34 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.petruccini.pokephone.presentation.screens.PokemonListScreen
 import com.petruccini.pokephone.presentation.theme.PokephoneTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PokephoneTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
+                MainScreen()
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "drivers") {
-        composable("drivers") {
-
+    NavHost(navController = navController, startDestination = "pokemon_list") {
+        composable("pokemon_list") {
+            PokemonListScreen { pokemonName ->
+                Log.d("MainActivity", "pokemonName: $pokemonName")
+                // navController.navigate("pokemon_details/$pokemonName")
+            }
         }
     }
 }
