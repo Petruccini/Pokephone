@@ -1,4 +1,4 @@
-package com.petruccini.pokephone.ui.theme
+package com.petruccini.pokephone.presentation.theme
 
 import android.app.Activity
 import android.os.Build
