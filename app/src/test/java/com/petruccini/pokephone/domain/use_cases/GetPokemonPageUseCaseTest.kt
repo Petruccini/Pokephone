@@ -13,11 +13,11 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class GetPokemonListUseCaseTest {
+class GetPokemonPageUseCaseTest {
 
     private val remotePokemonListDataSource: RemotePokemonListDataSource = mock()
     private val pokemonListRepositoryMock = PokemonListRepository(remotePokemonListDataSource)
-    private val getPokemonListUseCase = GetPokemonListUseCase(pokemonListRepositoryMock)
+    private val getPokemonPageUseCase = GetPokemonPageUseCase(pokemonListRepositoryMock)
 
     @Test
     fun getPokemonListUseCase_ShouldReturnListOfPokemons() = runTest {
@@ -26,7 +26,7 @@ class GetPokemonListUseCaseTest {
         `when`(remotePokemonListDataSource.fetchPokemonList(0, POKEMON_LIST_LIMIT)).thenReturn(flowOf(pokemonList))
 
         // When
-        val result = getPokemonListUseCase(0)
+        val result = getPokemonPageUseCase(0)
 
         // Then
         result.collect {

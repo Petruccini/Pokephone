@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 const val POKEMON_LIST_LIMIT = 40
 
-class GetPokemonListUseCase @Inject constructor(
+class GetPokemonPageUseCase @Inject constructor(
     private val pokemonListRepository: PokemonListRepository
 ){
 

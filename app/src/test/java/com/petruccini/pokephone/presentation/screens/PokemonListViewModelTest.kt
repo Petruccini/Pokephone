@@ -2,7 +2,7 @@ package com.petruccini.pokephone.presentation.screens
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
-import com.petruccini.pokephone.domain.use_cases.GetPokemonListUseCase
+import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -20,27 +20,31 @@ class PokemonListViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val getPokemonListUseCase: GetPokemonListUseCase = mock()
-    private val viewModel = PokemonListViewModel(getPokemonListUseCase)
+    private val getPokemonPageUseCase: GetPokemonPageUseCase = mock()
+    private val viewModel = PokemonListViewModel(getPokemonPageUseCase)
 
     @Test
     fun getPokemonList_ShouldUpdate_pokemonListStateFlow() = runTest {
         // Given
-        val page = 0
         val pokemonList = PokemonList(
             count = 0,
             pokemonItems = listOf(
                 PokemonItem(id = 1, name = "Bulbasaur"),
-                PokemonItem(id = 2, name = "Ivysaur"),
-                PokemonItem(id = 3, name = "Venusaur")
+                PokemonItem(id = 2, name = "Ivysaur")
             )
         )
-        `when`(getPokemonListUseCase(page)).thenReturn(flowOf(pokemonList))
+
+        `when`(getPokemonPageUseCase(0)).thenReturn(flowOf(pokemonList))
+
+        val expected = listOf(
+            PokemonItem(id = 1, name = "Bulbasaur"),
+            PokemonItem(id = 2, name = "Ivysaur")
+        )
 
         // When
-        viewModel.getPokemonList(page)
+        viewModel.loadMorePokemons()
 
         // Then
-        assertEquals(pokemonList, viewModel.pokemonListStateFlow.value)
+        assertEquals(expected, viewModel.pokemonListStateFlow.value)
     }
 }
