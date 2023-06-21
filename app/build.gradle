@@ -50,10 +50,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
@@ -77,11 +77,19 @@ dependencies {
 
     //Retrofit2
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+
+    //Moshi
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
 
     //Okhttp3
     implementation "com.squareup.okhttp3:okhttp:3.14.9"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    //Mokito
+    testImplementation 'org.mockito:mockito-core:5.3.1'
+
+    //Test Coroutines
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 }
 
 kapt {
