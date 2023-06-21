@@ -1,4 +1,4 @@
-package com.petruccini.pokephone.presentation.screens
+package com.petruccini.pokephone.presentation.screens.pokemon_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

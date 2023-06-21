@@ -1,4 +1,4 @@
-package com.petruccini.pokephone.presentation.screens
+package com.petruccini.pokephone.presentation.screens.pokemon_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

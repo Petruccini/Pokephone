@@ -3,6 +3,7 @@ package com.petruccini.pokephone.presentation.screens
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
 import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
+import com.petruccini.pokephone.presentation.screens.pokemon_list.PokemonListViewModel
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
