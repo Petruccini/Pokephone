@@ -26,10 +26,10 @@ class PokemonListViewModel @Inject constructor(
     private var loadedAllPokemons: Boolean  = false
 
     fun loadMorePokemons() {
-        viewModelScope.launch {
-            if (loadingPokemonListStateFlow.value) return@launch
-            if (loadedAllPokemons) return@launch
+        if (loadingPokemonListStateFlow.value) return
+        if (loadedAllPokemons) return
 
+        viewModelScope.launch {
             val currentPage = pokemonListStateFlow.value.size / POKEMON_LIST_LIMIT
             getNewPokemonsPage(currentPage)
         }

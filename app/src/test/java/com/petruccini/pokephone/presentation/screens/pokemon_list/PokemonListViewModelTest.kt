@@ -1,9 +1,8 @@
-package com.petruccini.pokephone.presentation.screens
+package com.petruccini.pokephone.presentation.screens.pokemon_list
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
 import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
-import com.petruccini.pokephone.presentation.screens.pokemon_list.PokemonListViewModel
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -20,7 +19,6 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class PokemonListViewModelTest {
 
-
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
@@ -28,7 +26,7 @@ class PokemonListViewModelTest {
     private val viewModel = PokemonListViewModel(getPokemonPageUseCase)
 
     @Test
-    fun getPokemonList_ShouldUpdate_pokemonListStateFlow() = runTest {
+    fun loadMorePokemons_ShouldUpdate_pokemonListStateFlow() = runTest {
         // Given
         val pokemonList = PokemonList(
             count = 0,
