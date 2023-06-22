@@ -1,7 +1,7 @@
-package com.petruccini.pokephone.data.api.pokemon_list
+package com.petruccini.pokephone.data.api.services.pokemon_list
 
 
-import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

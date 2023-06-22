@@ -1,4 +1,4 @@
-package com.petruccini.pokephone.data.api.pokemon_list.model
+package com.petruccini.pokephone.data.api.services.pokemon_list.model
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
@@ -17,10 +17,8 @@ data class PokemonItemResponse(
 
 fun PokemonListResponse.toPokemonList() = PokemonList(
     count = count,
-    pokemonItems = results.map { it.toPokemonItem() }
-)
-
-fun PokemonItemResponse.toPokemonItem() = PokemonItem(
-    id = url.split("/").filter { it.isNotBlank() }.last().toInt(),
-    name = name
+    pokemonItems = results.map { PokemonItem(
+        id = it.url.split("/").filter { it.isNotBlank() }.last().toInt(),
+        name = it.name
+    ) }
 )

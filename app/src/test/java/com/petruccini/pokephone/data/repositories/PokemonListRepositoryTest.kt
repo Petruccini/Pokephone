@@ -1,8 +1,8 @@
 package com.petruccini.pokephone.data.repositories
 
-import com.petruccini.pokephone.data.api.pokemon_list.PokemonListService
-import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonItemResponse
-import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.PokemonListService
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonItemResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListResponse
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonListDataSource
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList

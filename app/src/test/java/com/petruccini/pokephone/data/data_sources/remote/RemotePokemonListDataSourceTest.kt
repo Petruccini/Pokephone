@@ -1,9 +1,9 @@
 package com.petruccini.pokephone.data.data_sources.remote
 
-import com.petruccini.pokephone.data.api.pokemon_list.PokemonListService
-import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonItemResponse
-import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonListResponse
-import com.petruccini.pokephone.data.api.pokemon_list.model.toPokemonList
+import com.petruccini.pokephone.data.api.services.pokemon_list.PokemonListService
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonItemResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.toPokemonList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
