@@ -1,13 +1,11 @@
 package com.petruccini.pokephone.presentation.screens.pokemon_list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
 import com.petruccini.pokephone.domain.use_cases.POKEMON_LIST_LIMIT
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -32,7 +30,6 @@ class PokemonListViewModel @Inject constructor(
         if (loadedAllPokemons) return
 
         viewModelScope.launch {
-            Log.d("PokemonListViewModel", "loadMorePokemons")
             val currentPage = pokemonListStateFlow.value.size / POKEMON_LIST_LIMIT
             getNewPokemonsPage(currentPage)
         }
@@ -42,7 +39,6 @@ class PokemonListViewModel @Inject constructor(
         currentPage: Int
     ) {
         _loadingPokemonListStateFlow.value = true
-        delay(1000)
         getPokemonPageUseCase(currentPage).collect {
             if (it != null) {
                 val list = _pokemonListStateFlow.value.toMutableList()
