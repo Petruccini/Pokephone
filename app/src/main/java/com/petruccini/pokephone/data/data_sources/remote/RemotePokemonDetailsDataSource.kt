@@ -11,7 +11,7 @@ class RemotePokemonDetailsDataSource @Inject constructor(
     private val pokemonDetailsService: PokemonDetailsService
 ) {
 
-    suspend fun getPokemonDetails(pokemonName: String): Flow<PokemonDetails?> {
+    suspend fun fetchPokemonDetails(pokemonName: String): Flow<PokemonDetails?> {
         val response = pokemonDetailsService.getPokemonDetails(pokemonName)
         return flowOf(response.body()?.toPokemonDetails())
     }

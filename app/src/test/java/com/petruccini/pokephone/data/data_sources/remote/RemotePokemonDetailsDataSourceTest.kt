@@ -27,7 +27,7 @@ class RemotePokemonDetailsDataSourceTest {
         RemotePokemonDetailsDataSource(pokemonDetailsService)
 
     @Test
-    fun getPokemonDetails_ShouldReturnPokemonDetails_WhenSuccess() = runTest {
+    fun fetchPokemonDetails_ShouldReturnPokemonDetails_WhenSuccess() = runTest {
         // Given
         val pokemonName = "bulbasaur"
         val response = PokemonDetailsResponse(
@@ -66,7 +66,7 @@ class RemotePokemonDetailsDataSourceTest {
         )
 
         // When
-        val result = remotePokemonDetailsDataSource.getPokemonDetails(pokemonName)
+        val result = remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)
 
         // Then
         result.collect {
@@ -75,7 +75,7 @@ class RemotePokemonDetailsDataSourceTest {
     }
 
     @Test
-    fun getPokemonDetails_ShouldReturnNull_WhenFailure() = runTest {
+    fun fetchPokemonDetails_ShouldReturnNull_WhenFailure() = runTest {
         // Given
         val pokemonName = "bulbasaur"
         `when`(pokemonDetailsService.getPokemonDetails(pokemonName)).thenReturn(
@@ -83,7 +83,7 @@ class RemotePokemonDetailsDataSourceTest {
         )
 
         // When
-        val result = remotePokemonDetailsDataSource.getPokemonDetails(pokemonName)
+        val result = remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)
 
         // Then
         result.collect {
