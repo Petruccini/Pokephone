@@ -10,6 +10,6 @@ data class PokemonDetails(
 )
 
 data class Sprites(
-    val front_default: String,
-    val back_default: String,
+    val frontDefault: String,
+    val backDefault: String,
 )

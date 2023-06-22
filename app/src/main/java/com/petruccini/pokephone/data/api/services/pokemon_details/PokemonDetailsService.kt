@@ -1,5 +1,6 @@
 package com.petruccini.pokephone.data.api.services.pokemon_details
 
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.PokemonDetailsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
