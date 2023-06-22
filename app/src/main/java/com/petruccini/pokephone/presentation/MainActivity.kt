@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.petruccini.pokephone.presentation.screens.pokemon_details.PokemonDetailsScreen
 import com.petruccini.pokephone.presentation.screens.pokemon_list.PokemonListScreen
 import com.petruccini.pokephone.presentation.theme.PokephoneTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,13 @@ fun MainScreen() {
         composable("pokemon_list") {
             PokemonListScreen { pokemonName ->
                 Log.d("MainActivity", "pokemonName: $pokemonName")
-                // navController.navigate("pokemon_details/$pokemonName")
+                navController.navigate("pokemon_details/$pokemonName")
+            }
+        }
+        composable("pokemon_details/{pokemonName}") { backStackEntry ->
+            backStackEntry.arguments?.getString("pokemonName")?.let { pokemonName ->
+                Log.d("MainActivity", "pokemonName: $pokemonName")
+                PokemonDetailsScreen(pokemonName = pokemonName)
             }
         }
     }
