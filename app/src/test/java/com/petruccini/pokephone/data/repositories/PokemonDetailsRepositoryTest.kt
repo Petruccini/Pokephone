@@ -49,6 +49,7 @@ class PokemonDetailsRepositoryTest {
         id = 1,
         height = 7,
         weight = 69,
+        order = 1,
         types = listOf("grass", "poison"),
         sprites = Sprites(
             frontDefault = "pokemon/1.png",
@@ -65,7 +66,6 @@ class PokemonDetailsRepositoryTest {
             Type(slot = 1, type = TypeX(name = "grass", url = "")),
             Type(slot = 2, type = TypeX(name = "poison", url = ""))
         ),
-        base_experience = 64,
         order = 1,
         sprites = SpritesResponse(
             front_default = "pokemon/1.png",

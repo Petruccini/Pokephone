@@ -4,7 +4,6 @@ import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
 
 data class PokemonDetailsResponse(
-    val base_experience: Int,
     val height: Int,
     val id: Int,
     val name: String,
@@ -19,6 +18,7 @@ fun PokemonDetailsResponse.toPokemonDetails() = PokemonDetails(
     name = name,
     height = height,
     weight = weight,
+    order = order,
     types = types.map { it.type.name },
     sprites = Sprites(
         frontDefault = sprites.front_default,

@@ -1,7 +1,6 @@
 package com.petruccini.pokephone.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -34,13 +33,11 @@ fun MainScreen() {
     NavHost(navController = navController, startDestination = "pokemon_list") {
         composable("pokemon_list") {
             PokemonListScreen { pokemonName ->
-                Log.d("MainActivity", "pokemonName: $pokemonName")
                 navController.navigate("pokemon_details/$pokemonName")
             }
         }
         composable("pokemon_details/{pokemonName}") { backStackEntry ->
             backStackEntry.arguments?.getString("pokemonName")?.let { pokemonName ->
-                Log.d("MainActivity", "pokemonName: $pokemonName")
                 PokemonDetailsScreen(pokemonName = pokemonName)
             }
         }

@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.use_cases.GetPokemonDetailsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
     private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase
 ) : ViewModel() {

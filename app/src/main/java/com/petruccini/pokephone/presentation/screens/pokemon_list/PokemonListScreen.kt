@@ -54,7 +54,6 @@ fun PokemonListScreen(
     }
 }
 
-
 @Composable
 fun ShowProgressBar() {
     Column(

@@ -5,6 +5,7 @@ data class PokemonDetails(
     val name: String,
     val height: Int,
     val weight: Int,
+    val order: Int,
     val types: List<String>,
     val sprites: Sprites
 )

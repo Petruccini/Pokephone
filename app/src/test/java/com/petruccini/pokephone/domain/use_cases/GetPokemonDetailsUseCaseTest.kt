@@ -46,6 +46,7 @@ class GetPokemonDetailsUseCaseTest {
         id = 1,
         height = 7,
         weight = 69,
+        order = 1,
         types = listOf("grass", "poison"),
         sprites = Sprites(
             frontDefault = "pokemon/1.png",
