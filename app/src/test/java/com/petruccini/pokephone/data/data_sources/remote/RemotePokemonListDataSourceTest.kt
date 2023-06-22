@@ -1,9 +1,9 @@
 package com.petruccini.pokephone.data.data_sources.remote
 
-import com.petruccini.pokephone.data.api.PokemonServices
-import com.petruccini.pokephone.data.api.model.PokemonItemResponse
-import com.petruccini.pokephone.data.api.model.PokemonListResponse
-import com.petruccini.pokephone.data.api.model.toPokemonList
+import com.petruccini.pokephone.data.api.pokemon_list.PokemonListService
+import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonItemResponse
+import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.pokemon_list.model.toPokemonList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
@@ -17,8 +17,8 @@ import retrofit2.Response
 @OptIn(ExperimentalCoroutinesApi::class)
 class RemotePokemonListDataSourceTest {
 
-    private val pokemonServices: PokemonServices = mock()
-    private val remotePokemonListDataSource = RemotePokemonListDataSource(pokemonServices)
+    private val pokemonListService: PokemonListService = mock()
+    private val remotePokemonListDataSource = RemotePokemonListDataSource(pokemonListService)
 
     @Test
     fun fetchPokemonList_ShouldReturnListOfPokemons_WhenSuccess() = runTest {
@@ -35,7 +35,7 @@ class RemotePokemonListDataSourceTest {
                 PokemonItemResponse(name = "Venusaur", url = "/3/"),
             )
         )
-        `when`(pokemonServices.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListResponse))
+        `when`(pokemonListService.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListResponse))
 
         // When
         val result = remotePokemonListDataSource.fetchPokemonList(offset, limit)
@@ -52,7 +52,7 @@ class RemotePokemonListDataSourceTest {
         val offset = 0
         val limit = 20
 
-        `when`(pokemonServices.getPokemons(offset, limit)).thenReturn(
+        `when`(pokemonListService.getPokemons(offset, limit)).thenReturn(
             Response.error(404, ResponseBody.create(null, ""))
         )
 

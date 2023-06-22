@@ -1,8 +1,8 @@
 package com.petruccini.pokephone.data.repositories
 
-import com.petruccini.pokephone.data.api.PokemonServices
-import com.petruccini.pokephone.data.api.model.PokemonItemResponse
-import com.petruccini.pokephone.data.api.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.pokemon_list.PokemonListService
+import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonItemResponse
+import com.petruccini.pokephone.data.api.pokemon_list.model.PokemonListResponse
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonListDataSource
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
@@ -18,8 +18,8 @@ import retrofit2.Response
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonListRepositoryTest {
 
-    private val pokemonServices: PokemonServices = mock()
-    private val remotePokemonListDataSource = RemotePokemonListDataSource(pokemonServices)
+    private val pokemonListService: PokemonListService = mock()
+    private val remotePokemonListDataSource = RemotePokemonListDataSource(pokemonListService)
     private val pokemonListRepository = PokemonListRepository(remotePokemonListDataSource)
 
     @Test
@@ -47,7 +47,7 @@ class PokemonListRepositoryTest {
         )
 
 
-        `when`(pokemonServices.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListResponse))
+        `when`(pokemonListService.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListResponse))
 
         // When
         val result = pokemonListRepository.fetchPokemonList(offset, limit)

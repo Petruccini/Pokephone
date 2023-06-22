@@ -40,7 +40,7 @@ object APIFactory {
         .baseUrl(apiBaseUrl)
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
-
-
-    val pokemonServices: PokemonServices = retrofit().create(PokemonServices::class.java)
+    fun <T> createService(serviceClass: Class<T>): T {
+        return retrofit().create(serviceClass)
+    }
 }

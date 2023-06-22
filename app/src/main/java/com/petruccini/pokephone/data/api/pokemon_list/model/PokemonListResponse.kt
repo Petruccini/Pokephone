@@ -1,4 +1,4 @@
-package com.petruccini.pokephone.data.api.model
+package com.petruccini.pokephone.data.api.pokemon_list.model
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
