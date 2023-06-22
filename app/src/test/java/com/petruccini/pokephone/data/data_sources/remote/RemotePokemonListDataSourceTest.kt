@@ -10,11 +10,14 @@ import okhttp3.ResponseBody
 import org.junit.Assert.*
 
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Response
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@RunWith(MockitoJUnitRunner::class)
 class RemotePokemonListDataSourceTest {
 
     private val pokemonListService: PokemonListService = mock()
