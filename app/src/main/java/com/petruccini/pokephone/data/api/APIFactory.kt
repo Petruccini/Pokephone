@@ -29,9 +29,9 @@ object APIFactory {
 
     private val client = OkHttpClient().newBuilder()
         .addInterceptor(authInterceptor)
-        .connectTimeout(5, TimeUnit.MINUTES)
-        .writeTimeout(5, TimeUnit.MINUTES)
-        .readTimeout(5, TimeUnit.MINUTES)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
         .addInterceptor(interceptor)
         .build()
 
