@@ -1,6 +1,6 @@
 package com.petruccini.pokephone.data.api.services.pokemon_details
 
-import com.petruccini.pokephone.data.api.services.pokemon_details.model.PokemonDetailsResponse
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.PokemonDetailsApiModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,5 +14,5 @@ interface PokemonDetailsService {
             value = "pokemon_name",
             encoded = true
         ) pokemonName: String
-    ): Response<PokemonDetailsResponse>
+    ): Response<PokemonDetailsApiModel>
 }

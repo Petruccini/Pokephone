@@ -1,8 +1,8 @@
 package com.petruccini.pokephone.data.repositories
 
 import com.petruccini.pokephone.data.api.services.pokemon_list.PokemonListService
-import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonItemResponse
-import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonApiModel
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListApiModel
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonListDataSource
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
@@ -30,14 +30,14 @@ class PokemonListRepositoryTest {
         // Given
         val offset = 0
         val limit = 3
-        val pokemonListResponse = PokemonListResponse(
+        val pokemonListApiModel = PokemonListApiModel(
             count = 3,
             next = "",
             previous = "",
             listOf(
-                PokemonItemResponse(name = "Bulbasaur", url = "/1/"),
-                PokemonItemResponse(name = "Ivysaur", url = "/2/"),
-                PokemonItemResponse(name = "Venusaur", url = "/3/"),
+                PokemonApiModel(name = "Bulbasaur", url = "/1/"),
+                PokemonApiModel(name = "Ivysaur", url = "/2/"),
+                PokemonApiModel(name = "Venusaur", url = "/3/"),
             )
         )
         val expected = PokemonList(
@@ -50,7 +50,7 @@ class PokemonListRepositoryTest {
         )
 
 
-        `when`(pokemonListService.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListResponse))
+        `when`(pokemonListService.getPokemons(offset, limit)).thenReturn(Response.success(pokemonListApiModel))
 
         // When
         val result = pokemonListRepository.fetchPokemonList(offset, limit)

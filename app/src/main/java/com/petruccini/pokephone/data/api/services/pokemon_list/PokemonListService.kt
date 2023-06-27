@@ -1,7 +1,7 @@
 package com.petruccini.pokephone.data.api.services.pokemon_list
 
 
-import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListResponse
+import com.petruccini.pokephone.data.api.services.pokemon_list.model.PokemonListApiModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,5 +13,5 @@ interface PokemonListService {
     suspend fun getPokemons(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
-    ): Response<PokemonListResponse>
+    ): Response<PokemonListApiModel>
 }

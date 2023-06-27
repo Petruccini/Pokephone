@@ -1,10 +1,10 @@
 package com.petruccini.pokephone.data.repositories
 
 import com.petruccini.pokephone.data.api.services.pokemon_details.PokemonDetailsService
-import com.petruccini.pokephone.data.api.services.pokemon_details.model.PokemonDetailsResponse
-import com.petruccini.pokephone.data.api.services.pokemon_details.model.SpritesResponse
-import com.petruccini.pokephone.data.api.services.pokemon_details.model.Type
-import com.petruccini.pokephone.data.api.services.pokemon_details.model.TypeX
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.PokemonDetailsApiModel
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.SpritesApiModel
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.TypeApiModel
+import com.petruccini.pokephone.data.api.services.pokemon_details.model.TypeXApiModel
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonDetailsDataSource
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
@@ -57,17 +57,17 @@ class PokemonDetailsRepositoryTest {
         )
     )
 
-    private fun createPokemonDetailsResponseMock() = PokemonDetailsResponse(
+    private fun createPokemonDetailsResponseMock() = PokemonDetailsApiModel(
         name = "Bulbasaur",
         id = 1,
         height = 7,
         weight = 69,
         types = listOf(
-            Type(slot = 1, type = TypeX(name = "grass", url = "")),
-            Type(slot = 2, type = TypeX(name = "poison", url = ""))
+            TypeApiModel(slot = 1, type = TypeXApiModel(name = "grass", url = "")),
+            TypeApiModel(slot = 2, type = TypeXApiModel(name = "poison", url = ""))
         ),
         order = 1,
-        sprites = SpritesResponse(
+        sprites = SpritesApiModel(
             front_default = "pokemon/1.png",
             back_default = "pokemon/back/1.png",
             front_shiny = "",

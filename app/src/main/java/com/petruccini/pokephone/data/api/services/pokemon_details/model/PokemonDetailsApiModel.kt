@@ -3,17 +3,17 @@ package com.petruccini.pokephone.data.api.services.pokemon_details.model
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
 
-data class PokemonDetailsResponse(
+data class PokemonDetailsApiModel(
     val height: Int,
     val id: Int,
     val name: String,
     val order: Int,
-    val sprites: SpritesResponse,
-    val types: List<Type>,
+    val sprites: SpritesApiModel,
+    val types: List<TypeApiModel>,
     val weight: Int
 )
 
-fun PokemonDetailsResponse.toPokemonDetails() = PokemonDetails(
+fun PokemonDetailsApiModel.toPokemonDetails() = PokemonDetails(
     id = id,
     name = name,
     height = height,
@@ -26,19 +26,19 @@ fun PokemonDetailsResponse.toPokemonDetails() = PokemonDetails(
     )
 )
 
-data class SpritesResponse(
+data class SpritesApiModel(
     val back_default: String,
     val back_shiny: String,
     val front_default: String,
     val front_shiny: String,
 )
 
-data class Type(
+data class TypeApiModel(
     val slot: Int,
-    val type: TypeX
+    val type: TypeXApiModel
 )
 
-data class TypeX(
+data class TypeXApiModel(
     val name: String,
     val url: String
 )
