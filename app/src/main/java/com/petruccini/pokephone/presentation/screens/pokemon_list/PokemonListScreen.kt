@@ -1,5 +1,6 @@
 package com.petruccini.pokephone.presentation.screens.pokemon_list
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.petruccini.pokephone.domain.entities.PokemonItem
@@ -36,8 +38,15 @@ fun PokemonListScreen(
     navigateToPokemonDetails: (String) -> Unit
 ) {
 
+    val context = LocalContext.current
+
     val pokemonListState = viewModel.pokemonListStateFlow.collectAsStateLifecycleAware()
     val isLoading = viewModel.loadingPokemonListStateFlow.collectAsStateLifecycleAware()
+    val error = viewModel.errorStateFlow.collectAsStateLifecycleAware()
+
+    if (error.value != null) {
+        Toast.makeText(context, error.value, Toast.LENGTH_SHORT).show()
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadMorePokemons()

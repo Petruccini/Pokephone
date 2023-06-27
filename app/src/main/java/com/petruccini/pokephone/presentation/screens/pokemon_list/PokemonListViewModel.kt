@@ -8,6 +8,7 @@ import com.petruccini.pokephone.domain.use_cases.POKEMON_LIST_LIMIT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +23,9 @@ class PokemonListViewModel @Inject constructor(
 
     private val _loadingPokemonListStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loadingPokemonListStateFlow = _loadingPokemonListStateFlow.asStateFlow()
+
+    private val _errorStateFlow: MutableStateFlow<String?> = MutableStateFlow(null)
+    val errorStateFlow = _errorStateFlow.asStateFlow()
 
     private var loadedAllPokemons: Boolean  = false
 
@@ -39,7 +43,12 @@ class PokemonListViewModel @Inject constructor(
         currentPage: Int
     ) {
         _loadingPokemonListStateFlow.value = true
-        getPokemonPageUseCase(currentPage).collect {
+        getPokemonPageUseCase(currentPage)
+            .catch {
+                _loadingPokemonListStateFlow.value = false
+                _errorStateFlow.value = it.message
+            }
+            .collect {
             if (it != null) {
                 val list = _pokemonListStateFlow.value.toMutableList()
                 list.addAll(it.pokemonItems)

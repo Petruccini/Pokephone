@@ -1,5 +1,6 @@
 package com.petruccini.pokephone.presentation.screens.pokemon_details
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.petruccini.pokephone.presentation.ktx.collectAsStateLifecycleAware
@@ -30,10 +32,17 @@ fun PokemonDetailsScreen(
     pokemonName: String
 ) {
 
+    val context = LocalContext.current
+
     val capitalizedPokemonName = pokemonName.capitalizeFirstChar()
 
     val pokemonDetailsState = viewModel.pokemonDetailsStateFlow.collectAsStateLifecycleAware()
     val isLoading = viewModel.loadingPokemonDetailsStateFlow.collectAsStateLifecycleAware()
+    val error = viewModel.errorStateFlow.collectAsStateLifecycleAware()
+
+    if (error.value != null) {
+        Toast.makeText(context, error.value, Toast.LENGTH_SHORT).show()
+    }
 
     if (isLoading.value) { ShowProgressBar() }
 
