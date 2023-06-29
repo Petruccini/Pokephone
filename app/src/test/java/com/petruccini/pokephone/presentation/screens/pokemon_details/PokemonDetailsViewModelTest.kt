@@ -26,7 +26,7 @@ class PokemonDetailsViewModelTest {
     private val viewModel = PokemonDetailsViewModel(getPokemonDetailsUseCase)
 
     @Test
-    fun getPokemonDetails_ShouldUpdate_pokemonDetailsStateFlow() = runTest {
+    fun getPokemonDetails_ShouldUpdate_uiState() = runTest {
         // Given
         val pokemonName = "Bulbasaur"
         val pokemonDetails = createPokemonDetailsMock()
@@ -36,7 +36,7 @@ class PokemonDetailsViewModelTest {
         viewModel.getPokemonDetails(pokemonName)
 
         // Then
-        assertEquals(pokemonDetails, viewModel.pokemonDetailsStateFlow.value)
+        assertEquals(pokemonDetails, viewModel.uiState.value.pokemonDetails)
     }
 
     private fun createPokemonDetailsMock() = PokemonDetails(

@@ -26,7 +26,7 @@ class PokemonListViewModelTest {
     private val viewModel = PokemonListViewModel(getPokemonPageUseCase)
 
     @Test
-    fun loadMorePokemons_ShouldUpdate_pokemonListStateFlow() = runTest {
+    fun loadMorePokemons_ShouldUpdate_uiState() = runTest {
         // Given
         val pokemonList = PokemonList(
             count = 0,
@@ -47,6 +47,6 @@ class PokemonListViewModelTest {
         viewModel.loadMorePokemons()
 
         // Then
-        assertEquals(expected, viewModel.pokemonListStateFlow.value)
+        assertEquals(expected, viewModel.uiState.value.pokemonList)
     }
 }

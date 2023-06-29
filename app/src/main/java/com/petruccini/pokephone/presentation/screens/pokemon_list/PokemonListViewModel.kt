@@ -6,35 +6,40 @@ import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
 import com.petruccini.pokephone.domain.use_cases.POKEMON_LIST_LIMIT
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class PokemonListUiState(
+    val pokemonList: List<PokemonItem> = listOf(),
+    val isLoading: Boolean = false,
+    val error: String? = null
+)
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
     private val getPokemonPageUseCase: GetPokemonPageUseCase
 ) : ViewModel() {
 
-    private val _pokemonListStateFlow: MutableStateFlow<List<PokemonItem>> =
-        MutableStateFlow(listOf())
-    val pokemonListStateFlow = _pokemonListStateFlow.asStateFlow()
+    private val _uiState = MutableStateFlow(PokemonListUiState())
+    val uiState = _uiState.asStateFlow()
 
-    private val _loadingPokemonListStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val loadingPokemonListStateFlow = _loadingPokemonListStateFlow.asStateFlow()
+    private val listOfPokemon = mutableListOf<PokemonItem>()
+    private var loadedAllPokemons: Boolean = false
 
-    private val _errorStateFlow: MutableStateFlow<String?> = MutableStateFlow(null)
-    val errorStateFlow = _errorStateFlow.asStateFlow()
-
-    private var loadedAllPokemons: Boolean  = false
+    private var fetchJob: Job? = null
 
     fun loadMorePokemons() {
-        if (loadingPokemonListStateFlow.value) return
+        if (_uiState.value.isLoading) return
         if (loadedAllPokemons) return
 
-        viewModelScope.launch {
-            val currentPage = pokemonListStateFlow.value.size / POKEMON_LIST_LIMIT
+        fetchJob?.cancel()
+        fetchJob = viewModelScope.launch {
+            val currentPage = _uiState.value.pokemonList.size / POKEMON_LIST_LIMIT
             getNewPokemonsPage(currentPage)
         }
     }
@@ -42,21 +47,20 @@ class PokemonListViewModel @Inject constructor(
     private suspend fun getNewPokemonsPage(
         currentPage: Int
     ) {
-        _loadingPokemonListStateFlow.value = true
+        _uiState.update { it.copy(isLoading = true) }
         getPokemonPageUseCase(currentPage)
-            .catch {
-                _loadingPokemonListStateFlow.value = false
-                _errorStateFlow.value = it.message
+            .catch { error ->
+                _uiState.update { it.copy(isLoading = false, error = error.message) }
             }
-            .collect {
-            if (it != null) {
-                val list = _pokemonListStateFlow.value.toMutableList()
-                list.addAll(it.pokemonItems)
-                if (list.size == it.count) loadedAllPokemons = true
-                _pokemonListStateFlow.value = list
+            .collect {pokemonList ->
+                if (pokemonList != null) {
+                    listOfPokemon.addAll(pokemonList.pokemonItems)
+                    if (listOfPokemon.size == pokemonList.count) loadedAllPokemons = true
+                    _uiState.update { it.copy(isLoading = false, pokemonList = listOfPokemon.distinct()) }
+                } else {
+                    // TODO Implement a better error handling
+                    _uiState.update { it.copy(isLoading = false, error = "Error loading pokemons") }
+                }
             }
-            _loadingPokemonListStateFlow.value = false
-        }
     }
-
 }

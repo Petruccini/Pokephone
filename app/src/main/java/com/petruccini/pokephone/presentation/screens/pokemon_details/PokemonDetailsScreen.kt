@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -36,15 +37,13 @@ fun PokemonDetailsScreen(
 
     val capitalizedPokemonName = pokemonName.capitalizeFirstChar()
 
-    val pokemonDetailsState = viewModel.pokemonDetailsStateFlow.collectAsStateLifecycleAware()
-    val isLoading = viewModel.loadingPokemonDetailsStateFlow.collectAsStateLifecycleAware()
-    val error = viewModel.errorStateFlow.collectAsStateLifecycleAware()
+    val uiState by viewModel.uiState.collectAsStateLifecycleAware()
 
-    if (error.value != null) {
-        Toast.makeText(context, error.value, Toast.LENGTH_SHORT).show()
+    if (uiState.error != null) {
+        Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
     }
 
-    if (isLoading.value) { ShowProgressBar() }
+    if (uiState.isLoading) { ShowProgressBar() }
 
     LaunchedEffect(pokemonName) {
         viewModel.getPokemonDetails(pokemonName)
@@ -77,25 +76,25 @@ fun PokemonDetailsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Height: ${pokemonDetailsState.value?.height}",
+                        text = "Height: ${uiState.pokemonDetails?.height}",
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                     Text(
-                        text = "Weight: ${pokemonDetailsState.value?.weight}",
+                        text = "Weight: ${uiState.pokemonDetails?.weight}",
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
                 Text(
-                    text = "Order: ${pokemonDetailsState.value?.order}",
+                    text = "Order: ${uiState.pokemonDetails?.order}",
                     fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                     modifier = Modifier.padding(end = 16.dp)
                 )
             }
         }
 
-        if (isLoading.value) {
+        if (uiState.isLoading) {
             ShowProgressBar()
         }
     }

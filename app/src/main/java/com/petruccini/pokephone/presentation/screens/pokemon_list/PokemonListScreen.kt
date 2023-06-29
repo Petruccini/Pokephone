@@ -40,12 +40,10 @@ fun PokemonListScreen(
 
     val context = LocalContext.current
 
-    val pokemonListState = viewModel.pokemonListStateFlow.collectAsStateLifecycleAware()
-    val isLoading = viewModel.loadingPokemonListStateFlow.collectAsStateLifecycleAware()
-    val error = viewModel.errorStateFlow.collectAsStateLifecycleAware()
+    val uiState by viewModel.uiState.collectAsStateLifecycleAware()
 
-    if (error.value != null) {
-        Toast.makeText(context, error.value, Toast.LENGTH_SHORT).show()
+    if (uiState.error != null) {
+        Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
     }
 
     LaunchedEffect(Unit) {
@@ -69,13 +67,13 @@ fun PokemonListScreen(
                 .padding(innerPadding)
         ) {
             PokemonList(
-                pokemonList = pokemonListState.value,
+                pokemonList = uiState.pokemonList,
                 onSelectPokemon = navigateToPokemonDetails,
                 onEndOfListReached = { viewModel.loadMorePokemons() }
             )
         }
 
-        if (isLoading.value) {
+        if (uiState.isLoading) {
             ShowProgressBar()
         }
     }
