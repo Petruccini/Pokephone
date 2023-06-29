@@ -1,12 +1,13 @@
 package com.petruccini.pokephone.data.repositories
 
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonDetailsDataSource
+import com.petruccini.pokephone.domain.use_cases.pokemon_details.PokemonDetailsRepository
 import javax.inject.Inject
 
-class PokemonDetailsRepository @Inject constructor(
+class PokemonDetailsRepositoryImpl @Inject constructor(
     private val remotePokemonDetailsDataSource: RemotePokemonDetailsDataSource
-) {
+): PokemonDetailsRepository {
 
-    suspend fun fetchPokemonDetails(pokemonName: String) =
+    override suspend fun fetchPokemonDetails(pokemonName: String) =
         remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)
 }

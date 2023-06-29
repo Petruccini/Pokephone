@@ -3,7 +3,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonDetails
-import com.petruccini.pokephone.domain.use_cases.GetPokemonDetailsUseCase
+import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

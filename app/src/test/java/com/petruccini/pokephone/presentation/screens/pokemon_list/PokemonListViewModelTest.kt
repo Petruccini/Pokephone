@@ -2,7 +2,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_list
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
-import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
+import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -22,8 +22,8 @@ class PokemonListViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val getPokemonPageUseCase: GetPokemonPageUseCase = mock()
-    private val viewModel = PokemonListViewModel(getPokemonPageUseCase)
+    private val getPokemonListUseCase: GetPokemonListUseCase = mock()
+    private val viewModel = PokemonListViewModel(getPokemonListUseCase)
 
     @Test
     fun loadMorePokemons_ShouldUpdate_uiState() = runTest {
@@ -36,7 +36,7 @@ class PokemonListViewModelTest {
             )
         )
 
-        `when`(getPokemonPageUseCase(0)).thenReturn(flowOf(pokemonList))
+        `when`(getPokemonListUseCase(0)).thenReturn(flowOf(pokemonList))
 
         val expected = listOf(
             PokemonItem(id = 1, name = "Bulbasaur"),

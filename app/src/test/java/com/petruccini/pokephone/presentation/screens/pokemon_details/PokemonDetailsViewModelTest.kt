@@ -2,7 +2,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_details
 
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
-import com.petruccini.pokephone.domain.use_cases.GetPokemonDetailsUseCase
+import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf

@@ -20,12 +20,12 @@ import retrofit2.Response
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
-class PokemonDetailsRepositoryTest {
+class PokemonDetailsRepositoryImplTest {
 
     private val pokemonDetailsService: PokemonDetailsService = mock()
     private val remotePokemonDetailsDataSource = RemotePokemonDetailsDataSource(pokemonDetailsService)
-    private val pokemonDetailsRepository =
-        PokemonDetailsRepository(remotePokemonDetailsDataSource)
+    private val pokemonDetailsRepositoryImpl =
+        PokemonDetailsRepositoryImpl(remotePokemonDetailsDataSource)
 
     @Test
     fun fetchPokemonDetails_ShouldReturnPokemonDetails() = runTest {
@@ -36,7 +36,7 @@ class PokemonDetailsRepositoryTest {
         `when`(pokemonDetailsService.getPokemonDetails(pokemonName)).thenReturn(Response.success(response))
 
         // When
-        val result = pokemonDetailsRepository.fetchPokemonDetails(pokemonName)
+        val result = pokemonDetailsRepositoryImpl.fetchPokemonDetails(pokemonName)
 
         // Then
         result.collect {

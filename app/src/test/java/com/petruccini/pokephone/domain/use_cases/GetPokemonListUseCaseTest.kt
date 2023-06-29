@@ -1,9 +1,11 @@
 package com.petruccini.pokephone.domain.use_cases
 
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonListDataSource
-import com.petruccini.pokephone.data.repositories.PokemonListRepository
+import com.petruccini.pokephone.data.repositories.PokemonListRepositoryImpl
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
+import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
+import com.petruccini.pokephone.domain.use_cases.pokemon_list.POKEMON_LIST_LIMIT
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -16,11 +18,11 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
-class GetPokemonPageUseCaseTest {
+class GetPokemonListUseCaseTest {
 
     private val remotePokemonListDataSource: RemotePokemonListDataSource = mock()
-    private val pokemonListRepositoryMock = PokemonListRepository(remotePokemonListDataSource)
-    private val getPokemonPageUseCase = GetPokemonPageUseCase(pokemonListRepositoryMock)
+    private val pokemonListRepositoryImplMock = PokemonListRepositoryImpl(remotePokemonListDataSource)
+    private val getPokemonListUseCase = GetPokemonListUseCase(pokemonListRepositoryImplMock)
 
     @Test
     fun getPokemonListUseCase_ShouldReturnListOfPokemons() = runTest {
@@ -29,7 +31,7 @@ class GetPokemonPageUseCaseTest {
         `when`(remotePokemonListDataSource.fetchPokemonList(0, POKEMON_LIST_LIMIT)).thenReturn(flowOf(pokemonList))
 
         // When
-        val result = getPokemonPageUseCase(0)
+        val result = getPokemonListUseCase(0)
 
         // Then
         result.collect {

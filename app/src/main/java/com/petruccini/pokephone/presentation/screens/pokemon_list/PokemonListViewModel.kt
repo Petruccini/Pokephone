@@ -3,8 +3,8 @@ package com.petruccini.pokephone.presentation.screens.pokemon_list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonItem
-import com.petruccini.pokephone.domain.use_cases.GetPokemonPageUseCase
-import com.petruccini.pokephone.domain.use_cases.POKEMON_LIST_LIMIT
+import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
+import com.petruccini.pokephone.domain.use_cases.pokemon_list.POKEMON_LIST_LIMIT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ data class PokemonListUiState(
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-    private val getPokemonPageUseCase: GetPokemonPageUseCase
+    private val getPokemonListUseCase: GetPokemonListUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PokemonListUiState())
@@ -48,7 +48,7 @@ class PokemonListViewModel @Inject constructor(
         currentPage: Int
     ) {
         _uiState.update { it.copy(isLoading = true) }
-        getPokemonPageUseCase(currentPage)
+        getPokemonListUseCase(currentPage)
             .catch { error ->
                 _uiState.update { it.copy(isLoading = false, error = error.message) }
             }

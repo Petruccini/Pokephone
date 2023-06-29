@@ -1,9 +1,10 @@
 package com.petruccini.pokephone.domain.use_cases
 
 import com.petruccini.pokephone.data.data_sources.remote.RemotePokemonDetailsDataSource
-import com.petruccini.pokephone.data.repositories.PokemonDetailsRepository
+import com.petruccini.pokephone.data.repositories.PokemonDetailsRepositoryImpl
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
+import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -19,9 +20,9 @@ import org.mockito.junit.MockitoJUnitRunner
 class GetPokemonDetailsUseCaseTest {
 
     private val remotePokemonDetailsDataSource: RemotePokemonDetailsDataSource = mock()
-    private val pokemonDetailsRepositoryMock =
-        PokemonDetailsRepository(remotePokemonDetailsDataSource)
-    private val getPokemonDetailsUseCase = GetPokemonDetailsUseCase(pokemonDetailsRepositoryMock)
+    private val pokemonDetailsRepositoryImplMock =
+        PokemonDetailsRepositoryImpl(remotePokemonDetailsDataSource)
+    private val getPokemonDetailsUseCase = GetPokemonDetailsUseCase(pokemonDetailsRepositoryImplMock)
 
     @Test
     fun getPokemonDetailsUseCase_ShouldReturnPokemonDetails() = runTest {
