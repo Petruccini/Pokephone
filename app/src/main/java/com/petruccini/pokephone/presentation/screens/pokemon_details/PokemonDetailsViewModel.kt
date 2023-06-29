@@ -3,6 +3,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonDetails
+import com.petruccini.pokephone.domain.use_cases.FormatPokemonNameUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -21,7 +22,8 @@ data class PokemonDetailsUiState(
 
 @HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
-    private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase
+    private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase,
+    private val formatPokemonNameUseCase: FormatPokemonNameUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PokemonDetailsUiState())
@@ -55,4 +57,6 @@ class PokemonDetailsViewModel @Inject constructor(
                 }
         }
     }
+
+    fun formatPokemonName(pokemonName: String) = formatPokemonNameUseCase(pokemonName)
 }

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.presentation.ktx.collectAsStateLifecycleAware
-import com.petruccini.pokephone.presentation.screens.pokemon_details.capitalizeFirstChar
 import com.petruccini.pokephone.presentation.shared_components.ShowProgressBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,7 +68,8 @@ fun PokemonListScreen(
             PokemonList(
                 pokemonList = uiState.pokemonList,
                 onSelectPokemon = navigateToPokemonDetails,
-                onEndOfListReached = { viewModel.loadMorePokemons() }
+                onEndOfListReached = { viewModel.loadMorePokemons() },
+                formatPokemonName = { viewModel.formatPokemonName(it) }
             )
         }
 
@@ -83,7 +83,8 @@ fun PokemonListScreen(
 fun PokemonList(
     pokemonList: List<PokemonItem>,
     onSelectPokemon: (String) -> Unit,
-    onEndOfListReached: () -> Unit
+    onEndOfListReached: () -> Unit,
+    formatPokemonName: (String) -> String
 ) {
 
     val lazyListState = rememberLazyListState()
@@ -100,7 +101,7 @@ fun PokemonList(
             Row(modifier = Modifier
                 .clickable { onSelectPokemon(it.name) }) {
                 Text(
-                    text = "${it.id} - ${it.name.capitalizeFirstChar()}",
+                    text = "${it.id} - ${formatPokemonName(it.name)}",
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                     fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
                     modifier = Modifier

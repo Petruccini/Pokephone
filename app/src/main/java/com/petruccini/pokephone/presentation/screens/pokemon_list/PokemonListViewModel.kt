@@ -3,6 +3,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petruccini.pokephone.domain.entities.PokemonItem
+import com.petruccini.pokephone.domain.use_cases.FormatPokemonNameUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_list.POKEMON_LIST_LIMIT
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,8 @@ data class PokemonListUiState(
 
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
-    private val getPokemonListUseCase: GetPokemonListUseCase
+    private val getPokemonListUseCase: GetPokemonListUseCase,
+    private val formatPokemonNameUseCase: FormatPokemonNameUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PokemonListUiState())
@@ -63,4 +65,6 @@ class PokemonListViewModel @Inject constructor(
                 }
             }
     }
+
+    fun formatPokemonName(pokemonName: String) = formatPokemonNameUseCase(pokemonName)
 }

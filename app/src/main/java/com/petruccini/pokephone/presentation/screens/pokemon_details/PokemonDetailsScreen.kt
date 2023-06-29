@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.petruccini.pokephone.presentation.ktx.collectAsStateLifecycleAware
 import com.petruccini.pokephone.presentation.shared_components.ShowProgressBar
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +34,7 @@ fun PokemonDetailsScreen(
 
     val context = LocalContext.current
 
-    val capitalizedPokemonName = pokemonName.capitalizeFirstChar()
+    val capitalizedPokemonName = viewModel.formatPokemonName(pokemonName)
 
     val uiState by viewModel.uiState.collectAsStateLifecycleAware()
 
@@ -98,11 +97,4 @@ fun PokemonDetailsScreen(
             ShowProgressBar()
         }
     }
-
-}
-
-fun String.capitalizeFirstChar() = this.replaceFirstChar {
-    if (it.isLowerCase()) it.titlecase(
-        Locale.getDefault()
-    ) else it.toString()
 }
