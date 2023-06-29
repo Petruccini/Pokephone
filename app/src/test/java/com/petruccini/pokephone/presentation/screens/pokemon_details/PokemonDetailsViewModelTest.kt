@@ -2,6 +2,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_details
 
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
+import com.petruccini.pokephone.domain.use_cases.FormatPokemonNameUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +24,8 @@ class PokemonDetailsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase = mock()
-    private val viewModel = PokemonDetailsViewModel(getPokemonDetailsUseCase)
+    private val formatPokemonNameUseCase = FormatPokemonNameUseCase()
+    private val viewModel = PokemonDetailsViewModel(getPokemonDetailsUseCase, formatPokemonNameUseCase)
 
     @Test
     fun getPokemonDetails_ShouldUpdate_uiState() = runTest {

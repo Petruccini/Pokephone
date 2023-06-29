@@ -2,6 +2,7 @@ package com.petruccini.pokephone.presentation.screens.pokemon_list
 
 import com.petruccini.pokephone.domain.entities.PokemonItem
 import com.petruccini.pokephone.domain.entities.PokemonList
+import com.petruccini.pokephone.domain.use_cases.FormatPokemonNameUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
 import com.petruccini.pokephone.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,7 +24,8 @@ class PokemonListViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val getPokemonListUseCase: GetPokemonListUseCase = mock()
-    private val viewModel = PokemonListViewModel(getPokemonListUseCase)
+    private val formatPokemonNameUseCase = FormatPokemonNameUseCase()
+    private val viewModel = PokemonListViewModel(getPokemonListUseCase, formatPokemonNameUseCase)
 
     @Test
     fun loadMorePokemons_ShouldUpdate_uiState() = runTest {
