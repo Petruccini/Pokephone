@@ -6,7 +6,6 @@ import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
 import com.petruccini.pokephone.domain.use_cases.pokemon_details.GetPokemonDetailsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -30,7 +29,7 @@ class GetPokemonDetailsUseCaseTest {
         val pokemonName = "Bulbasaur"
         val pokemonDetails = createPokemonDetailsMock()
         `when`(remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)).thenReturn(
-            flowOf(pokemonDetails)
+            pokemonDetails
         )
 
         // When

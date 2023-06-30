@@ -7,7 +7,6 @@ import com.petruccini.pokephone.domain.entities.PokemonList
 import com.petruccini.pokephone.domain.use_cases.pokemon_list.GetPokemonListUseCase
 import com.petruccini.pokephone.domain.use_cases.pokemon_list.POKEMON_LIST_LIMIT
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
@@ -28,7 +27,7 @@ class GetPokemonListUseCaseTest {
     fun getPokemonListUseCase_ShouldReturnListOfPokemons() = runTest {
         // Given
         val pokemonList = PokemonList(1, listOf(PokemonItem(0, "Bulbasaur")))
-        `when`(remotePokemonListDataSource.fetchPokemonList(0, POKEMON_LIST_LIMIT)).thenReturn(flowOf(pokemonList))
+        `when`(remotePokemonListDataSource.fetchPokemonList(0, POKEMON_LIST_LIMIT)).thenReturn(pokemonList)
 
         // When
         val result = getPokemonListUseCase(0)

@@ -69,9 +69,7 @@ class RemotePokemonDetailsDataSourceTest {
         val result = remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)
 
         // Then
-        result.collect {
-            assertEquals(expected, it)
-        }
+        assertEquals(expected, result)
     }
 
     @Test
@@ -86,8 +84,6 @@ class RemotePokemonDetailsDataSourceTest {
         val result = remotePokemonDetailsDataSource.fetchPokemonDetails(pokemonName)
 
         // Then
-        result.collect {
-            assertNull(it)
-        }
+        assertNull(result)
     }
 }

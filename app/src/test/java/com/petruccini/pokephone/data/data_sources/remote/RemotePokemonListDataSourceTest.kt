@@ -44,9 +44,7 @@ class RemotePokemonListDataSourceTest {
         val result = remotePokemonListDataSource.fetchPokemonList(offset, limit)
 
         // Then
-        result.collect {
-            assertEquals(pokemonListApiModel.toPokemonList(), it)
-        }
+        assertEquals(pokemonListApiModel.toPokemonList(), result)
     }
 
     @Test
@@ -63,8 +61,6 @@ class RemotePokemonListDataSourceTest {
         val result = remotePokemonListDataSource.fetchPokemonList(offset, limit)
 
         // Then
-        result.collect {
-            assertNull(it)
-        }
+        assertNull(result)
     }
 }
