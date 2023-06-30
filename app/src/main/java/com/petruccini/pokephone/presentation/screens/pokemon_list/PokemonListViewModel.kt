@@ -35,6 +35,17 @@ class PokemonListViewModel @Inject constructor(
 
     private var fetchJob: Job? = null
 
+    init {
+        loadFirstPokemons()
+    }
+
+    private fun loadFirstPokemons() {
+        viewModelScope.launch {
+            val currentPage = _uiState.value.pokemonList.size / POKEMON_LIST_LIMIT
+            getNewPokemonsPage(currentPage)
+        }
+    }
+
     fun loadMorePokemons() {
         if (_uiState.value.isLoading) return
         if (loadedAllPokemons) return

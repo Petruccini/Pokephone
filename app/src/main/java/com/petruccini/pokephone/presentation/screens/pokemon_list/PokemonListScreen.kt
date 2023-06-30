@@ -45,10 +45,6 @@ fun PokemonListScreen(
         Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.loadMorePokemons()
-    }
-
     Scaffold(
         topBar = {
             TopAppBar(
