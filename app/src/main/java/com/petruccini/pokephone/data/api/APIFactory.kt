@@ -1,6 +1,5 @@
 package com.petruccini.pokephone.data.api
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,25 +9,11 @@ import java.util.concurrent.TimeUnit
 object APIFactory {
     private var apiBaseUrl = "https://pokeapi.co"
 
-    private val authInterceptor = Interceptor { chain ->
-        val newUrl = chain.request().url()
-            .newBuilder()
-            .build()
-
-        val newRequest = chain.request()
-            .newBuilder()
-            .url(newUrl)
-            .build()
-
-        chain.proceed(newRequest)
-    }
-
     private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BODY
     }
 
     private val client = OkHttpClient().newBuilder()
-        .addInterceptor(authInterceptor)
         .connectTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
