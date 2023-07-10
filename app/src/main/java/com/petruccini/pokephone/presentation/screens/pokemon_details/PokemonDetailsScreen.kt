@@ -20,12 +20,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.petruccini.pokephone.domain.entities.PokemonDetails
+import com.petruccini.pokephone.domain.entities.Sprites
 import com.petruccini.pokephone.presentation.ktx.collectAsStateLifecycleAware
 import com.petruccini.pokephone.presentation.shared_components.ShowProgressBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonDetailsScreen(
     viewModel: PokemonDetailsViewModel = hiltViewModel(),
@@ -33,21 +35,28 @@ fun PokemonDetailsScreen(
 ) {
 
     val context = LocalContext.current
-
     val capitalizedPokemonName = viewModel.formatPokemonName(pokemonName)
-
     val uiState by viewModel.uiState.collectAsStateLifecycleAware()
-
     if (uiState.error != null) {
         Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
     }
-
-    if (uiState.isLoading) { ShowProgressBar() }
+    if (uiState.isLoading) {
+        ShowProgressBar()
+    }
 
     LaunchedEffect(pokemonName) {
         viewModel.getPokemonDetails(pokemonName)
     }
 
+    PokemonDetails(capitalizedPokemonName, uiState)
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun PokemonDetails(
+    capitalizedPokemonName: String,
+    uiState: PokemonDetailsUiState
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -97,4 +106,27 @@ fun PokemonDetailsScreen(
             ShowProgressBar()
         }
     }
+}
+
+@Preview
+@Composable
+fun PokemonDetailsPreview() {
+    PokemonDetails(
+        capitalizedPokemonName = "Pikachu",
+        uiState = PokemonDetailsUiState(
+            pokemonDetails = PokemonDetails(
+                id = 25,
+                name = "pikachu",
+                height = 4,
+                weight = 60,
+                order = 35,
+                sprites = Sprites(
+                    frontDefault = "",
+                    backDefault = "",
+                ),
+                types = listOf(),
+            ),
+            isLoading = false,
+        )
+    )
 }
