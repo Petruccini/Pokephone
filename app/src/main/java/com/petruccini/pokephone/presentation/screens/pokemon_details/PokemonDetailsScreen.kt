@@ -1,12 +1,11 @@
 package com.petruccini.pokephone.presentation.screens.pokemon_details
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -22,7 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.petruccini.pokephone.domain.entities.PokemonDetails
 import com.petruccini.pokephone.domain.entities.Sprites
 import com.petruccini.pokephone.presentation.ktx.collectAsStateLifecycleAware
@@ -73,15 +74,31 @@ private fun PokemonDetails(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+            ConstraintLayout(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
             ) {
-                Row(
+
+                val (imageRef, columnRef) = createRefs()
+                AsyncImage(model = uiState.pokemonDetails?.sprites?.frontDefault,
+                    contentDescription = "Pokemon Image",
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+                        .width(150.dp)
+                        .height(150.dp)
+                        .padding(16.dp)
+                        .constrainAs(imageRef) {
+                            top.linkTo(parent.top)
+                            start.linkTo(parent.start)
+                        }
+                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.constrainAs(columnRef) {
+                        top.linkTo(imageRef.top, margin = 32.dp)
+                        start.linkTo(imageRef.end, margin = 16.dp)
+                        end.linkTo(parent.end)
+                    }
                 ) {
                     Text(
                         text = "Height: ${uiState.pokemonDetails?.height}",
@@ -93,12 +110,12 @@ private fun PokemonDetails(
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                         modifier = Modifier.padding(end = 16.dp)
                     )
+                    Text(
+                        text = "Order: ${uiState.pokemonDetails?.order}",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                        modifier = Modifier.padding(end = 16.dp)
+                    )
                 }
-                Text(
-                    text = "Order: ${uiState.pokemonDetails?.order}",
-                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
-                    modifier = Modifier.padding(end = 16.dp)
-                )
             }
         }
 
